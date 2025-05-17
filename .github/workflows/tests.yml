@@ -1,0 +1,24 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Rust
+        run: |
+          rustup toolchain install stable
+          rustup default stable
+          rustc --version
+
+      - uses: actions/checkout@v4
+
+      - name: Run tests
+        run: cargo test --verbose

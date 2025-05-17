@@ -1,0 +1,15 @@
+.git
+.gitignore
+.vscode
+.idea
+.vim
+.DS_Store
+.venv
+__pycache__
+.coverage
+mister.ip
+/target
+/docs
+/ref_tests
+*~
+Dockerfile*
