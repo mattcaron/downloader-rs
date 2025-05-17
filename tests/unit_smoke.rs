@@ -1,5 +1,7 @@
 // This test suite just checks that the repository structure is working fine
 
+#![allow(dead_code)]
+
 use downloader::the_42;
 use fakes::objects::file_a;
 

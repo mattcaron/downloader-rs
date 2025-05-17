@@ -7,3 +7,6 @@ edition = "2024"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
+
+[dev-dependencies]
+anymap = "0.12.1"
