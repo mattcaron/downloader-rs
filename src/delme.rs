@@ -4,7 +4,6 @@ use std::rc::Rc;
 
 use crate::filesystem::*;
 
-
 #[derive(Clone)]
 pub struct ServiceA {
     fs: Rc<dyn FileSystem>,
@@ -36,7 +35,6 @@ impl ServiceB {
     }
 }
 
-
 pub struct ServiceC {
     fs: Rc<dyn FileSystem>,
     service_a: Rc<ServiceA>,
@@ -44,11 +42,7 @@ pub struct ServiceC {
 }
 
 impl ServiceC {
-    pub fn new(
-        fs: Rc<dyn FileSystem>,
-        service_a: Rc<ServiceA>,
-        service_b: Rc<ServiceB>,
-    ) -> Self {
+    pub fn new(fs: Rc<dyn FileSystem>, service_a: Rc<ServiceA>, service_b: Rc<ServiceB>) -> Self {
         Self {
             fs,
             service_a,

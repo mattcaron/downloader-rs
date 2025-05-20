@@ -1,7 +1,7 @@
 use downloader::filesystem::FileSystem;
-use std::rc::Rc;
-use std::cell::RefCell;
 use serde_json::{Map, Value};
+use std::cell::RefCell;
+use std::rc::Rc;
 
 #[derive(Debug)]
 pub struct FakeFileSystem {
@@ -10,12 +10,16 @@ pub struct FakeFileSystem {
 
 impl FileSystem for FakeFileSystem {
     fn touch(&self, path: &str) {
-        self.state.borrow_mut().insert(path.to_string(), Value::Bool(true));
+        self.state
+            .borrow_mut()
+            .insert(path.to_string(), Value::Bool(true));
     }
 }
 
 pub fn empty_fs() -> Rc<FakeFileSystem> {
-    Rc::new(FakeFileSystem { state: RefCell::new(Map::new()) })
+    Rc::new(FakeFileSystem {
+        state: RefCell::new(Map::new()),
+    })
 }
 
 impl PartialEq for FakeFileSystem {
@@ -26,7 +30,9 @@ impl PartialEq for FakeFileSystem {
 
 pub fn fs_from_json(value: Value) -> Rc<FakeFileSystem> {
     if let Value::Object(state) = value {
-        Rc::new(FakeFileSystem { state: RefCell::new(state) })
+        Rc::new(FakeFileSystem {
+            state: RefCell::new(state),
+        })
     } else {
         panic!("fs_from_json expects a JSON object");
     }

@@ -1,8 +1,8 @@
-use std::rc::Rc;
-use anymap::AnyMap;
-use downloader::delme::{ServiceA, ServiceB, ServiceC};
 use crate::fakes::macros::AnyMapExt;
 use crate::{any, fs, impl_tester};
+use anymap::AnyMap;
+use downloader::delme::{ServiceA, ServiceB, ServiceC};
+use std::rc::Rc;
 
 impl_tester!(ServiceATester, ServiceA);
 impl ServiceATester {

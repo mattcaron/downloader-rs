@@ -35,10 +35,7 @@ fn service_c_calc___when_instantiated_through_test_complayer_fn_with_custom_valu
  {
     // This one allows customization while keeping it succinct so that we can focus on the test.
     // This is the furthest I got to remove noise, but if it can be improved, please do so.
-    assert_ne!(
-        service_c_(any!(service_a_(any! { 42 }), fs!())).calc(),
-        3
-    );
+    assert_ne!(service_c_(any!(service_a_(any! { 42 }), fs!())).calc(), 3);
 }
 
 #[test]
@@ -55,7 +52,6 @@ fn service_c_under_a_very_common_scenario() -> std::rc::Rc<downloader::delme::Se
     // This could be put in another module if it is used in different test suites
     service_c_(any!(service_a_(any! { 42 }), service_b_(any! { 42 })))
 }
-
 
 #[test]
 fn service_c_calc___when_fs_was_empty___produces_fs_with_file_a_b_and_calc() {
