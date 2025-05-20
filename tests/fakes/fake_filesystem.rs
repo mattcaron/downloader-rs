@@ -1,18 +1,33 @@
 use downloader::filesystem::FileSystem;
-use std::cell::RefCell;
-use std::collections::HashMap as Map;
 use std::rc::Rc;
+use std::cell::RefCell;
+use serde_json::{Map, Value};
 
-struct FakeFileSystem {
-    state: Map<String, bool>,
+#[derive(Debug)]
+pub struct FakeFileSystem {
+    pub state: RefCell<Map<String, Value>>,
 }
 
 impl FileSystem for FakeFileSystem {
-    fn touch(&mut self, path: &str) {
-        self.state.insert(path.to_string(), true);
+    fn touch(&self, path: &str) {
+        self.state.borrow_mut().insert(path.to_string(), Value::Bool(true));
     }
 }
 
-pub fn fs() -> Rc<RefCell<dyn FileSystem>> {
-    Rc::new(RefCell::new(FakeFileSystem { state: Map::new() }))
+pub fn empty_fs() -> Rc<FakeFileSystem> {
+    Rc::new(FakeFileSystem { state: RefCell::new(Map::new()) })
+}
+
+impl PartialEq for FakeFileSystem {
+    fn eq(&self, other: &Self) -> bool {
+        self.state.borrow().eq(&other.state.borrow())
+    }
+}
+
+pub fn fs_from_json(value: Value) -> Rc<FakeFileSystem> {
+    if let Value::Object(state) = value {
+        Rc::new(FakeFileSystem { state: RefCell::new(state) })
+    } else {
+        panic!("fs_from_json expects a JSON object");
+    }
 }

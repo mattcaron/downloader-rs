@@ -3,7 +3,7 @@
 #![allow(dead_code)]
 
 use downloader::the_42;
-use fakes::objects::file_a;
+use fakes::objects::file_calc;
 
 mod fakes;
 
@@ -14,7 +14,7 @@ fn it_runs() {
 
 #[test]
 fn it_uses_fakes() {
-    assert_eq!(file_a, "a");
+    assert_eq!(file_calc, "calc");
 }
 
 #[test]

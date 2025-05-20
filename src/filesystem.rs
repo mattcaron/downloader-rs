@@ -1,5 +1,5 @@
 pub trait FileSystem {
-    fn touch(&mut self, path: &str);
+    fn touch(&self, path: &str);
 }
 
 #[derive(Clone)]
@@ -12,7 +12,7 @@ impl RealFileSystem {
 }
 
 impl FileSystem for RealFileSystem {
-    fn touch(&mut self, path: &str) {
+    fn touch(&self, path: &str) {
         // TODO: Real implementation goes here
         println!("Touching file: {}", path);
     }

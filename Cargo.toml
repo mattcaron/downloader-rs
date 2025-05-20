@@ -10,3 +10,4 @@ crate-type = ["cdylib", "rlib"]
 
 [dev-dependencies]
 anymap = "0.12.1"
+serde_json = "1.0"
