@@ -18,8 +18,44 @@
 
 //! A collection of utility functions.
 
-pub fn calculate_url(_base_files_url: Option<&str>, _path: &str) -> Option<String> {
-    None
+use percent_encoding::{AsciiSet, NON_ALPHANUMERIC, percent_encode};
+
+/// What characters should be percent encoded.
+///
+/// This dataset it designed to match the Python urllib implementation and
+/// is therefore based on
+/// https://docs.python.org/3/library/urllib.parse.html#url-quoting,
+/// from urllib 3.13.3 which is, in turn, based on
+/// https://datatracker.ietf.org/doc/html/rfc3986.html
+///
+/// In reality, this implementation primarily based of these two lines in the
+/// doc description:
+///
+/// "Letters, digits, and the characters '_.-~' are never quoted."
+///
+/// "The optional safe parameter specifies additional ASCII characters that
+/// should not be quoted — its default value is '/'"
+///
+/// Thus, the implementation is the NON_ALPHANUMERIC set with those specific
+/// characters removed.
+const PYTHON_ESCAPES: &AsciiSet = &NON_ALPHANUMERIC
+    .remove(b'_')
+    .remove(b'.')
+    .remove(b'-')
+    .remove(b'~')
+    .remove(b'/');
+
+pub fn calculate_url(base_files_url: Option<&str>, path: &str) -> Option<String> {
+    match base_files_url {
+        Some(url) => {
+            if url.trim().is_empty() {
+                None
+            } else {
+                Some(url.to_owned() + &percent_encode(path.as_bytes(), PYTHON_ESCAPES).to_string())
+            }
+        }
+        None => None,
+    }
 }
 
 #[cfg(test)]
