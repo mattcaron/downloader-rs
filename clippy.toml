@@ -1,0 +1,10 @@
+
+# For both unrwap and expect, we don't want them to be generally used.
+# However:
+# 1. If it panics at build, we can fix it at build time.
+# 2. We play a little looser with tests. We can skip some error handling and
+#    just allow it to panic and fail the test.
+allow-unwrap-in-consts = true
+allow-unwrap-in-tests = true
+allow-expect-in-consts = true
+allow-expect-in-tests = true

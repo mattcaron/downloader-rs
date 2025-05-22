@@ -1,3 +1,4 @@
+#[allow(unsafe_code)]
 #[unsafe(no_mangle)]
 pub extern "C" fn downloader_init() -> i32 {
     0
