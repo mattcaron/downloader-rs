@@ -11,3 +11,21 @@ crate-type = ["cdylib", "rlib"]
 [dev-dependencies]
 anymap = "0.12.1"
 serde_json = "1.0"
+
+
+[lints.rust]
+# This codebase should never need to use any unsafe code. We're not accessing
+# registers, messing with raw pointers, or any of that old man C stuff.
+# However, we are doing C ABI stuff, and some of those things are unsafe
+# (most notably, the use of no_mangle).
+unsafe_code = "deny"
+
+[lints.clippy]
+## NB - see clippy.toml for more granular configurations.
+
+# Runtime unwraps are disallowed because they can panic.
+unwrap_used = "deny"
+
+# Expect is effectively unwrap with a nice error message, so it follows the
+# same rationale as above as above.
+expect_used = "deny"
