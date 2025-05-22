@@ -45,6 +45,22 @@ const PYTHON_ESCAPES: &AsciiSet = &NON_ALPHANUMERIC
     .remove(b'~')
     .remove(b'/');
 
+/// Calculate the URL from given base URL and path.
+///
+/// Essentially, this concatenates `path` on to `base_files_url`, after
+/// properly percent encoding `path`.
+///
+/// # Arguments
+///
+/// * `base_files_url` - Base URL to which `path` should be appended. No
+///   manipulation of this URL is performed.
+///
+/// * `path` - Path to add to `base_files_url`. This is percent encoded.
+///
+/// # Returns
+///
+/// The concatenated value as a `String`, or `None` if an error occurred.
+///
 pub fn calculate_url(base_files_url: Option<&str>, path: &str) -> Option<String> {
     match base_files_url {
         Some(url) => {
