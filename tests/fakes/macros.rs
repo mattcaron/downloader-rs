@@ -45,11 +45,11 @@ impl AnyMapExt for ::anymap::AnyMap {
 #[macro_export]
 macro_rules! fs {
     ($($json:tt)+) => {
-        crate::fakes::fake_filesystem::fs_from_json(serde_json::json!($($json)+))
+        $crate::fakes::fake_filesystem::fs_from_json(serde_json::json!($($json)+))
     };
 
     () => {
-        crate::fakes::fake_filesystem::empty_fs()
+        $crate::fakes::fake_filesystem::empty_fs()
     };
 }
 

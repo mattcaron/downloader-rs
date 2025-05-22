@@ -5,6 +5,12 @@ pub trait FileSystem {
 #[derive(Clone)]
 pub struct RealFileSystem {}
 
+impl Default for RealFileSystem {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl RealFileSystem {
     pub fn new() -> Self {
         Self {}
