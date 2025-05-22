@@ -19,6 +19,7 @@ serde_json = "1.0"
 # However, we are doing C ABI stuff, and some of those things are unsafe
 # (most notably, the use of no_mangle).
 unsafe_code = "deny"
+missing_docs = "warn"
 
 [lints.clippy]
 ## NB - see clippy.toml for more granular configurations.
