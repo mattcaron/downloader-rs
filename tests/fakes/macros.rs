@@ -1,3 +1,26 @@
+// Copyright (c) 2021-2025 José Manuel Barroso Galindo <theypsilon@gmail.com>
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+// You can download the latest version of this tool from:
+// https://github.com/theypsilon/downloader-rs
+
+//! A collection of macros used for faking things for testing purposes
+
+/// Create an AnyMap, storing the supplied data.
+///
+/// If no data is supplied, it creates an empty AnyMap.
 #[macro_export]
 macro_rules! any {
     // 0 elements → empty map
@@ -42,6 +65,7 @@ impl AnyMapExt for ::anymap::AnyMap {
     }
 }
 
+/// Create a fake filesystem, either empty or created per the supplied JSON.
 #[macro_export]
 macro_rules! fs {
     ($($json:tt)+) => {
@@ -53,6 +77,23 @@ macro_rules! fs {
     };
 }
 
+/// Macro to create boring boilerplate for impl testers.
+///
+/// This creates a struct called `tester` that takes `service` as an argument,
+/// then creates boilerplate implementations of Deref and DerefMut. It also
+/// creates an impl for `tester`, which implements `new` and `untester`
+/// functions, as follows:
+///
+/// * `new` - creates a new copy of `tester` created with an argument
+///   of `service`.
+///
+/// * `untester`- creates a new tester created with a clone of the service used
+///   to create this tester.
+///
+/// # Arguments
+///
+/// * `tester` - the name of the tester to implement
+/// * `service` - the service it tests
 #[macro_export]
 macro_rules! impl_tester {
     // $tester = the name of the wrapper type
