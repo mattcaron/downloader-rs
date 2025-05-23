@@ -10,3 +10,4 @@ pub fn the_42() -> i32 {
 
 pub mod delme;
 pub mod filesystem;
+pub mod other;
