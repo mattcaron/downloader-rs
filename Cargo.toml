@@ -31,3 +31,7 @@ unwrap_used = "deny"
 # Expect is effectively unwrap with a nice error message, so it follows the
 # same rationale as above as above.
 expect_used = "deny"
+
+# And, if we don't like implict panics from unwrap and expect, surely we don't
+# want explicit panics either.
+panic = "deny"
